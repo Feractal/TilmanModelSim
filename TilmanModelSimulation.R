@@ -230,4 +230,4 @@ for (i in 1:100){
   try_list[[i]] = explore()
 }
 
-saveRDS(try_list, "/Users/marco/Documents/Tesis/Databases/Try list.rds")
+saveRDS(try_list, "../Try list.rds")
