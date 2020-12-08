@@ -7,7 +7,6 @@ Se muestra el código utilizado para las simulaciones, que comprende varias func
 - hazparam(): Función que genera los valores de los parámetros necesarios para la resolución de las ecuaciones diferenciales de acuerdo a los criterios descritos en el apéndice A.
       
 Recibe: 
-
 * nsp (int): número de especies a utilizar en la simulación; para el trabajo descrito en el apéndice, se utilizaron 3 especies.
       
       
@@ -20,12 +19,9 @@ Regresa:
        
 Recibe:
            
-* vr (vector): vector con tasas de natalidad
-           
+* vr (vector): vector con tasas de natalidad          
 * vD (vector): vector con tasas de mortalidad
-           
 * mK (array): matriz con los valores de k_ij de las 3 especies con los 2 recursos
-           
 * mY (array): matriz con los valores de Y_ij de las 3 especies con los 2 recursos
        
        
