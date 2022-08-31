@@ -1,121 +1,116 @@
 # TilmanModelSim
-Simulación del modelo de Tilman para 3 especies y 2 recursos, implementado en el lenguaje de programación R.
+Simulation of the Tilman model for 3 species and 2 resources, implemented in the R programming language.
 
-Se muestra el código utilizado para las simulaciones, que comprende varias funciones:
+The code used for the simulations is shown, comprising several functions:
 
-
-
-- hazparam(): Función que genera los valores de los parámetros necesarios para la resolución de las ecuaciones diferenciales de acuerdo a los criterios descritos en el apéndice A.
+- hazparam(): Function that generates the values of the necessary parameters to solve the differential equations according to the criteria described in the Supplementary material.
       
-Recibe: 
+Receives: 
 
-nsp (int): número de especies a utilizar en la simulación; para el trabajo descrito en el apéndice, se utilizaron 3 especies.
+nsp (int): number of species to use in the simulation; for the work described in the appendix, 3 species were used.
       
-Regresa:
+Returns:
 
-lista con los valores de los parámetros vr: vector de tasas de natalidad, vD: vector con tasas de mortalidad, mK: matriz con los valores de k_ij para  las 3 especies con los 2 recursos, mY: matriz con los valores de Y_ij de las 3 especies con los 2 recursos; Fr: vector con las tasas de suministro de              los dos recursos; mRa: matriz con los valores de R* para cada par de especie recurso.
+list with the values of the parameters vr: vector of birth rates, vD: vector with mortality rates, mK: matrix with the values of k_ij for the 3 species with the 2 resources, mY: matrix with the values of Y_ij of the 3 species with the 2 resources; Fr: vector with the supply rates of the two resources; mRa: matrix with the values of R* for each pair of resource species.
  
  
- 
- 
-- plotTilman(): Función que determina las ZNGI, los vectores de consumo, la línea de abastecimiento para el muestro y las regiones de coexistencia.
+- plotTilman(): Function that determines the ZNGI, the consumption vectors, the supply line for sampling and the coexistence regions.
        
-Recibe:
+Receives:
            
-vr (vector): vector con tasas de natalidad
+vr (vector): vector with birth rates.
 
-vD (vector): vector con tasas de mortalidad
+vD (vector): vector with death rates.
 
-mK (array): matriz con los valores de k_ij de las 3 especies con los 2 recursos
+mK (array): matrix with the k_ij values of the 3 species with the 2 resources.
 
-mY (array): matriz con los valores de Y_ij de las 3 especies con los 2 recursos
+mY (array): matrix with the Y_ij values of the 3 species with the 2 resources.
        
-Regresa:
+Returns:
            
-lista con xord: coordenadas de la línea de abastecimiento; xC1 y yC1: coordenadas de los vectores de consumo del recurso 1; xC2 y yC2: coordenadas de                los vectores de consumo del recurso 1
+list with xord: supply line coordinates; xC1 and yC1: coordinates of the consumption vectors of resource 1; xC2 and yC2: coordinates of the consumption vectors of resource 1.
  
  
  
  
  
  
-- muestra(): Función que hace el muestreo en la línea de abastecimiento.
+- muestra(): Function that performs the sampling in the supply line.
         
-Recibe:
+Receives:
            
-xord (): línea de abastecimiento
+xord (): supply line
            
-intens (int): número de puntos a muestrear
+intens (int): number of points to sample
         
         
          
          
       
-- minsoft(): Función para minimizar el mínimo para la resolución de las ecuaciones diferenciales.
+- minsoft(): Function to minimize the minimum for solving differential equations.
 
 
 
 
 
-- convpar(): Función que nombra los parámetros generados en hazparam().
+- convpar(): Function that names the parameters generated in hazparam().
         
-Recibe:
+Receives:
            
-par (list): lista de parámetros generados en hazparam()
+par (list): list of parameters generated in hazparam()
         
-Regresa:
+Returns:
            
-lista de parámetros nombrados
-           
+list of named parameters.           
      
      
      
-- Tilman(): Función que establece las ecuaciones diferenciales del modelo para su resolución.
+- Tilman(): Function that establishes the differential equations of the model for its resolution.
          
-Recibe:
+Receives:
            
-t (seq): secuencia de tiempo para la que se desea salida; el primer valor de tiempos es el tiempo inicial
+t (seq): time sequence for which output is desired; the first time value is the start time.
            
-state (list): valores de los estados iniciales de las concentraciones de recursos y densidades de especies
+state (list): initial state values of resource concentrations and species densities.
            
-parameters (list): lista con los valores de los parámetros generados
+parameters (list): list with generated parameter values.
          
-Regresa:
+Returns:
          
-objeto de clase deSolve con una matriz que contiene los valores de las densidades de especies y concentraciones de recursos en los tiempos de salida especificados
+object of class deSolve with an array containing the values of the species densities and resource concentrations at the specified output times.
    
    
    
 
-- hazdat(): Función que genera los parámetros de una comunidad artificial, determina la región de abastecimiento para el muestreo de puntos de suministro (para    establecer los estados iniciales de los recursos) y resuelve las ecuaciones diferenciales para obtener la dinámica de las especies y recursos.       
+- hazdat(): Function that generates the parameters of an artificial community, determines the supply region for the sampling of supply points (to establish the initial states of the resources) and solves the differential equations to obtain the dynamics of the species and resources.    
           
-Regresa:
+Returns:
           
-lista con par (list): valores de los parámetros generados en hazparam(); npar (list): lista con los datos del muestreo generados en plotTilman(); y sal (array): matriz que contiene los valores de las densidades de especies y concentraciones de recursos en los tiempos de salida especificados
+list with par (list): parameter values generated in hazparam(); npar (list): list with the sample data generated in plotTilman(); y salt (array): array containing the values of the species densities and resource concentrations at the specified output times.
            
            
            
            
-- Ra_est(): Función que estima los valores de R* para cada par de especie-recurso de acuerdo a los criterios descritos en los métodos con diferentes valores     umbrales de la densidad máxima.          
+- Ra_est(): Function that estimates the values of R* for each species-resource pair according to the criteria described in the methods with different threshold values of the maximum density.       
            
-Recibe: 
+Receives: 
            
-comp (list): salida de hazdat()
+comp (list): output of hazdat()
             
-umbrales (vector): vector con los valores umbrales para la estimación
+umbrales (vector): vector with threshold values for estimation.
                       
-Regresa:
+Returns:
            
-Ras_mat (array): matriz con los valores de R* de cada par de especie-recurso estimados para cada valor umbral
+Ras_mat (array): matrix with the R* values of each species-resource pair estimated for each threshold value.
             
             
             
        
-- explore(): Función que genera la dinámica para las tres especies y los dos recursos utilizando las funciones anteriores para generar una comunidad artificial,    estima los valores de R* de cada par de especie-recurso, calcula el error asociado a las estimaciones de cada umbral, y calcula el coeficiente de correlación entre los valores de R* simulados y los valores de R* estimados.  
+- explore(): Function that generates the dynamics for the three species and the two resources using the previous functions to generate an artificial community, estimates the R* values of each species-resource pair, calculates the error associated with the estimates of each threshold, and calculates the correlation coefficient between the simulated R* values and the estimated R* values.
                   
-Regresa:
+Returns:
             
-lista con: dens_max: densidades maximas de las especies; real_Ra (matrix): valores de R* simulados de cada especie para cada recurso; est_RAS (matrix): valores estimados de R* con cada umbral; error_RAS (matrix): error de cada estimación; y cor_coefs (vector): coeficientes de correlación entre los R*, tanto los simulados como los estimados.
+list with: dens_max: maximum densities of the species; real_Ra (matrix): simulated R* values of each species for each resource; est_RAS (matrix): estimated values of R* with each threshold; error_RAS (matrix): error of each estimation; and cor_coefs (vector): correlation coefficients between the R*, both simulated and estimated.
               
               
           
